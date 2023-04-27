@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Day" representedClassName="Day" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="employee" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" inverseName="day" inverseEntity="Employee"/>
+        <relationship name="week" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Week" inverseName="day" inverseEntity="Week"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="Employee" representedClassName="Employee" syncable="YES" codeGenerationType="class">
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hourWorked" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="day" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="employee" inverseEntity="Day"/>
+    </entity>
+    <entity name="Week" representedClassName="Week" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="weekStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weekTitle" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="day" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Day" inverseName="week" inverseEntity="Day"/>
+    </entity>
 </model>

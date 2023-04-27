@@ -9,12 +9,19 @@ import SwiftUI
 
 @main
 struct SchedulePlusApp: App {
-    let persistenceController = PersistenceController.shared
+    @StateObject var datacontroller : DataController
+    
+    init() {
+        let datacontroller = DataController()
+        _datacontroller = StateObject(wrappedValue: datacontroller)
+    }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, datacontroller.container.viewContext)
+                .environmentObject(datacontroller)
+                
         }
     }
 }
